@@ -16,8 +16,8 @@ namespace DMIPrivateServices.Model
             set { _id = value; }
         }
 
-        private float _temperature;
-        public float Temperature
+        private double _temperature;
+        public double Temperature
         {
             get { return _temperature; }
             set { _temperature = value; }
@@ -32,6 +32,10 @@ namespace DMIPrivateServices.Model
 
         #endregion
 
+        public TemperatureData()
+        {
+            
+        }
         public TemperatureData(int id, float temperature, DateTime captureTime)
         {
             _id = id;

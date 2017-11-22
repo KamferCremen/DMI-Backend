@@ -62,20 +62,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DMIService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="DMIService.svc.cs">
       <DependentUpon>DMIService.svc</DependentUpon>
     </Compile>
     <Compile Include="IDMIService.cs" />
     <Compile Include="Model\TemperatureData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemperatureUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\DMIPrivateServices - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
