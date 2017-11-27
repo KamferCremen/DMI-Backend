@@ -20,16 +20,15 @@ namespace DMIPrivateServices
             return TemperatureUtils.ListCreator(reader);
         }
 
-        public HttpStatusCode AddTemperature(String temperature)
+        public HttpStatusCode AddTemperature(TemperatureData temperature)
         {
             SqlCommand InsertTemperature =
                 new SqlCommand(
-                    $"insert into weatherdata(Temperature, CaptureTime) values (@Temperature, @CaptureTime)",
+                    "insert into weatherdata(Temperature, CaptureTime) values (@Temperature, @CaptureTime)",
                     DatabaseService.SqlCon());
 
-            InsertTemperature.Parameters.AddWithValue("@Temperature", double.Parse(temperature));
+            InsertTemperature.Parameters.AddWithValue("@Temperature", temperature.Temperature);
             InsertTemperature.Parameters.AddWithValue("@CaptureTime", TemperatureUtils.Timestamp());
-
 
             if (InsertTemperature.ExecuteNonQuery() != 0)
             {
@@ -41,10 +40,39 @@ namespace DMIPrivateServices
             return HttpStatusCode.BadRequest;
         }
 
-        public float LiveTemperature()
+        public TemperatureData EditTemperature(string id, TemperatureData temperature)
         {
-            //To be continued
-            return 0;
+            SqlCommand UpdateTemperature =
+                new SqlCommand(
+                    "update weatherdata set Temperature = @Temperature where Id = @Id", DatabaseService.SqlCon());
+            UpdateTemperature.Parameters.AddWithValue("@Temperature", temperature.Temperature);
+            UpdateTemperature.Parameters.AddWithValue("@Id", Int32.Parse(id));
+    
+            UpdateTemperature.ExecuteNonQuery();
+            DatabaseService.SqlCon().Close();
+
+            return DatabaseService.GetByObjectId(id);
+        }
+
+        public HttpStatusCode RemoveTemperature(string id)
+        {
+            SqlCommand DeleteTemperature =
+                new SqlCommand(
+                    "delete from weatherdata where Id = @Id", DatabaseService.SqlCon());
+            DeleteTemperature.Parameters.AddWithValue("@Id", Int32.Parse(id));
+
+            DeleteTemperature.ExecuteNonQuery();
+            DatabaseService.SqlCon().Close();
+
+            return HttpStatusCode.OK;
+        }
+
+        public double LiveTemperature()
+        {
+            SqlCommand GetLiveElement = new SqlCommand("SELECT TOP 1 * FROM weatherdata ORDER by id x", DatabaseService.SqlCon());
+            SqlDataReader reader = GetLiveElement.ExecuteReader();
+
+            return reader.Read() ? reader.GetDouble(1) : -1;
         }
 
     }

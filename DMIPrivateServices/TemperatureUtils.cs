@@ -28,6 +28,20 @@ namespace DMIPrivateServices
             return TemporaryList;
         }
 
+        public static TemperatureData ObjectCreator(SqlDataReader reader)
+        {
+            TemperatureData TemporaryObj = new TemperatureData();
+
+            while (reader.Read())
+            {
+                TemporaryObj.Id = reader.GetInt32(0);
+                TemporaryObj.Temperature = reader.GetDouble(1);
+                TemporaryObj.CaptureTime = reader.GetDateTime(2);
+            }
+
+            return TemporaryObj;
+        }
+
         public static DateTime Timestamp()
         {
             return DateTime.Now;

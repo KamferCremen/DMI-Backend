@@ -14,22 +14,34 @@ namespace DMIPrivateServices
     [ServiceContract]
     public interface IDMIService
     {
+        //CRUD
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "/temperatures")]
+            UriTemplate = "temperatures")]
         List<TemperatureData> AllTemperatures();
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            UriTemplate = "/temperatures/temperature={Temperature}")]
-        HttpStatusCode AddTemperature(String temperature);
+            UriTemplate = "temperatures")]
+        HttpStatusCode AddTemperature(TemperatureData temperature);
 
+        [OperationContract]
+        [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            UriTemplate = "temperatures/{id}")]
+        TemperatureData EditTemperature(String id, TemperatureData temperature);
+
+        [OperationContract]
+        [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            UriTemplate = "temperatures/{Id}")]
+        HttpStatusCode RemoveTemperature(String id);
 
         //Live temperatur
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "/temperatures/live")]
-        float LiveTemperature();
+            UriTemplate = "temperatures/live")]
+        double LiveTemperature();
     }
 }

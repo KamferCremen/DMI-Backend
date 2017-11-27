@@ -36,7 +36,7 @@ namespace DMIPrivateServices.Model
         {
             
         }
-        public TemperatureData(int id, float temperature, DateTime captureTime)
+        public TemperatureData(int id, double temperature, DateTime captureTime)
         {
             _id = id;
             _temperature = temperature;
