@@ -70,7 +70,7 @@ namespace DMIPrivateServices
 
         public double LiveTemperature()
         {
-            SqlCommand GetLiveElement = new SqlCommand("SELECT TOP 1 * FROM weatherdata ORDER by id x", DatabaseService.SqlCon());
+            SqlCommand GetLiveElement = new SqlCommand("SELECT TOP 1 * FROM weatherdata ORDER by id", DatabaseService.SqlCon());
             SqlDataReader reader = GetLiveElement.ExecuteReader();
 
             return reader.Read() ? reader.GetDouble(1) : -1;
