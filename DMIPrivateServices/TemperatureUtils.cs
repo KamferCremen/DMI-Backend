@@ -14,15 +14,18 @@ namespace DMIPrivateServices
         {
             List<TemperatureData> TemporaryList = new List<TemperatureData>();
 
-            while (reader.Read())
+            if (reader.HasRows)
             {
-                TemperatureData TemporaryObj = new TemperatureData();
+                while (reader.Read())
+                {
+                    TemperatureData TemporaryObj = new TemperatureData();
 
-                TemporaryObj.Id = reader.GetInt32(0);
-                TemporaryObj.Temperature = reader.GetDouble(1);
-                TemporaryObj.CaptureTime = reader.GetDateTime(2);
+                    TemporaryObj.Id = reader.GetInt32(0);
+                    TemporaryObj.Temperature = reader.GetDouble(1);
+                    TemporaryObj.CaptureTime = reader.GetDateTime(2);
 
-                TemporaryList.Add(TemporaryObj);
+                    TemporaryList.Add(TemporaryObj);
+                }
             }
 
             return TemporaryList;

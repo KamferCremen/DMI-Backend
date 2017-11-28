@@ -43,5 +43,11 @@ namespace DMIPrivateServices
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "temperatures/live")]
         double LiveTemperature();
+
+        //Temperatures between a DateTime interval
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "temperatures/?datestart={datetimestart}&dateend={datetimeend}")]
+        List<TemperatureData> DateTimeTemperatures(String datetimestart, String datetimeend);
     }
 }

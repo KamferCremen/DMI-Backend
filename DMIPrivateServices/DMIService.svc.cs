@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Net;
 using DMIPrivateServices.Model;
 
@@ -75,5 +76,15 @@ namespace DMIPrivateServices
             return reader.Read() ? reader.GetDouble(1) : -1;
         }
 
+        public List<TemperatureData> DateTimeTemperatures(string datetimestart, string datetimeend)
+        {
+            SqlCommand GetAllElementBetweenDates = new SqlCommand("SELECT * FROM weatherdata" +
+            $" WHERE CaptureTime BETWEEN CONVERT(datetime, '{datetimestart}', 105) AND CONVERT(datetime, '{datetimeend}', 105)",
+                                                                  DatabaseService.SqlCon());
+            SqlDataReader reader = GetAllElementBetweenDates.ExecuteReader();
+            DatabaseService.SqlCon().Close();
+
+            return TemperatureUtils.ListCreator(reader);
+        }
     }
 }
