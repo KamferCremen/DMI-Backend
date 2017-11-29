@@ -72,6 +72,7 @@
       <DependentUpon>DMIService.svc</DependentUpon>
     </Compile>
     <Compile Include="IDMIService.cs" />
+    <Compile Include="Model\LiveTemperature.cs" />
     <Compile Include="Model\TemperatureData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureUtils.cs" />

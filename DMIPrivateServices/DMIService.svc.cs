@@ -70,10 +70,15 @@ namespace DMIPrivateServices
 
         public double LiveTemperature()
         {
-            SqlCommand GetLiveElement = new SqlCommand("SELECT TOP 1 * FROM weatherdata ORDER by id", DatabaseService.SqlCon());
-            SqlDataReader reader = GetLiveElement.ExecuteReader();
+            return Model.LiveTemperature.Instance.LiveTemp;
+        }
 
-            return reader.Read() ? reader.GetDouble(1) : -1;
+        public HttpStatusCode AddLiveTemperature(string temperature)
+        {
+            if(Double.TryParse(temperature, out double result))
+                Model.LiveTemperature.Instance.LiveTemp = result;
+
+            return HttpStatusCode.OK;
         }
 
         public List<TemperatureData> DateTimeTemperatures(string datetimestart, string datetimeend)
