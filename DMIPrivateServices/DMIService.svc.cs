@@ -75,8 +75,10 @@ namespace DMIPrivateServices
 
         public HttpStatusCode AddLiveTemperature(string temperature)
         {
-            if(Double.TryParse(temperature, out double result))
+            if (Double.TryParse(temperature, out double result))
                 Model.LiveTemperature.Instance.LiveTemp = result;
+            else
+                return HttpStatusCode.BadRequest;
 
             return HttpStatusCode.OK;
         }
